@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Payment Gateway</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+ * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
+
+.payment {
+  margin: 20px auto;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  max-width: 800px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin: 15px 0;
+}
+
+.col-50 {
+  width: 48%;
+}
+
+.icon-container {
+  margin-bottom: 20px;
+}
+
+.icon-container i {
+  font-size: 30px;
+  margin: 0 10px;
+}
+
+label {
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+ body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url('https://cdn.pixabay.com/photo/2017/06/24/23/03/railway-2439189_640.jpg'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 120vh;
+  }
+
+  header {
+    background-color: rgba(51, 51, 51, 0.8); 
+    color: #fff;
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .header-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  nav {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  nav a {
+    text-decoration: none;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+
+  nav a:hover {
+    background-color: #555;
+  }
+
+  container {
+    max-width: 800px;
+    margin: auto;
+    padding: 5rem;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+input[type="submit"] {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+input[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+/* Media queries for responsiveness */
+@media screen and (max-width: 600px) {
+  .col-50 {
+    width: 100%;
+  }
+}
+</style>
+
+</head>
+<body>
+<header>
+    <div class="header-content">
+      <div class="logo">USER PORTAL</div>
+      <nav>
+        <li><a href="home.html">Home</a></li>
+        <li><a href="history.html">Booking History</a></li>
+        <li><a href="tracking.html">Train Tracking</a></li>
+        <li><a href="wallet.html">My Wallet</a></li>
+        <li><a href="pref.html">Saved Preferences</a></li>
+	<li><a href="contact.html">Contact</a></li>
+	<li><a href="feedback.html">Feedback</a></li>
+      </nav>
+    </div>
+  </header>
+</br></br>
+<div class="payment">
+  <div class="row">
+    <div class="col-75">
+      <div class="container">
+        <form onsubmit="return validateForm()" action="pay.php" method="post">
+          <div class="row">
+            <div class="col-50">
+              <h2>Complete Your Payment</h2></br>
+              <label for="fname"><i class="fa fa-user"></i> Full Name</label>
+              <input type="text" id="fname" name="firstname" placeholder="Name" required>
+              <label for="email">Age</label>
+              <input type="number" id="Age" name="Age" placeholder="Age" required>
+              <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
+              <input type="text" id="adr" name="address" placeholder="Add Address" required>
+              <label for="city"><i class="fa fa-institution"></i> City</label>
+              <input type="text" id="city" name="city" placeholder="City Name" required>
+              <div class="row">
+                <div class="col-50">
+                  <label for="state">State</label>
+                  <input type="text" id="state" name="state" placeholder="State" required>
+                </div>
+                <div class="col-50">
+                  <label for="zip">Pin Code</label>
+                  <input type="text" id="zip" name="zip" placeholder="10001" required>
+                </div>
+              </div>
+            </div>
+            <div class="col-50">
+              <label for="fname">Accepted Cards</label>
+              <div class="icon-container">
+                <i class="fa fa-cc-visa" style="color: navy"></i>
+                <i class="fa fa-cc-amex" style="color: blue"></i>
+                <i class="fa fa-cc-mastercard" style="color: red"></i>
+                <i class="fa fa-cc-discover" style="color: orange"></i>
+              </div>
+              <label for="cname">Name on Card</label>
+              <input type="text" id="cname" name="cardname" placeholder="CardHolder's Name" required>
+              <label for="ccnum">Credit card number</label>
+              <input type="text" id="ccnum" name="cardnumber" placeholder="xxxx-xxxx-xxxx-xxxx" required>
+              <label for="expmonth">Exp Month</label>
+              <input type="text" id="expmonth" name="expmonth" placeholder="month" required>
+              <div class="row">
+                <div class="col-50">
+                  <label for="expyear">Exp Year</label>
+                  <input type="text" id="expyear" name="expyear" placeholder="Year" required>
+                </div>
+                <div class="col-50">
+                  <label for="cvv">CVV</label>
+                  <input type="text" id="cvv" name="cvv" placeholder="abc" required>
+                </div>
+              </div>
+            </div>
+          </div>
+          <label>
+            <input type="checkbox" checked="checked" name="sameadr"> Passenger's address same as billing
+          </label></br></br>
+          <input type="submit" value="Pay Now" class="btn">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+function validateForm() {
+  var inputs = document.getElementsByTagName('input');
+  for (var i = 0; i < inputs.length; i++) {
+    if (inputs[i].hasAttribute('required') && inputs[i].value === '') {
+      alert('Please fill out all required fields.');
+      return false;
+    }
+  }
+  return true; // Return true only if the form is valid
+}
+</script>
+<script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var paymentForm = document.getElementById('paymentForm');
+
+            paymentForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                // Perform any additional client-side validation or processing here
+
+                // If everything is valid, submit the form using AJAX
+                var formData = new FormData(paymentForm);
+                var xhr = new XMLHttpRequest();
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status === 200) {
+                            // Display an alert on successful payment
+                            alert('Payment successful!');
+
+                            // Redirect to ticket generation page
+                            window.location.href = 'ticket_generation.html';
+                        } else {
+                            // Handle errors or display a message to the user
+                            alert('Payment failed. Please try again.');
+                        }
+                    }
+                };
+
+                xhr.open('POST', paymentForm.action, true);
+                xhr.send(formData);
+            });
+        });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html ng-app="signupApp">
+
+<head>
+    <meta name="title" content="Signup" />
+    <meta name="description" content="This is Signup Page" />
+    <title> adminSign-Up</title>
+    <!-- External CSS File -->
+    <link href="signup.css" rel="stylesheet" />
+    <!-- AngularJS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.0/angular.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .form {
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        input.ng-invalid {
+            border-color: #e74c3c;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        img {
+            width: 100px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+        }
+
+        label {
+            margin-right: 10px;
+        }
+
+        a.back-link {
+            margin-top: 20px;
+            display: inline-block;
+            color: #333;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        a.back-link:hover {
+            color: #0056b3;
+        }
+
+        span.error-message {
+            color: #e74c3c;
+            font-size: 14px;
+        }
+    </style>
+</head>
+
+<body ng-controller="SignupController" class="body">
+    <form class="form" ng-submit="submitForm()" action="adminsignup.php" method ="post">
+        <h2>Railway Ticketing  Admin Signup Page</h2>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRD5iROb1TgJ_rcl-6r-68v1yjtID052zxSkw&usqp=CAU" />
+        <br />
+        <input type="text" placeholder="Enter Your First Name" ng-model="user.firstname"
+            ng-pattern="/^[A-Z][a-zA-Z]*\d.*$/" name="firstname" required />
+        <span class="error-message" ng-show="signupform.firstname.$error.pattern && signupform.firstname.$dirty">First Name should start with a capital letter and contain at least one digit.</span>
+        <span class="error-message" ng-show="signupform.firstname.$error.required && signupform.firstname.$dirty">First Name is required.</span>
+
+        <input type="text" placeholder="Enter Your Last Name" minlength="2" ng-model="user.lastname" name="lastname"
+            required />
+        <span class="error-message" ng-show="signupform.lastname.$error.minlength && signupform.lastname.$dirty">Last Name should be at least 2 characters long.</span>
+        <span class="error-message" ng-show="signupform.lastname.$error.required && signupform.lastname.$dirty">Last Name is required.</span>
+
+        <input type="email" placeholder="Enter Your Email Address" ng-model="user.email" ng-pattern="/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/" name="email" required />
+        <span class="error-message" ng-show="signupform.email.$error.pattern && signupform.email.$dirty">Enter a valid email address.</span>
+        <span class="error-message" ng-show="signupform.email.$error.required && signupform.email.$dirty">Email is required.</span>
+
+        <input type="text" placeholder="Set Username" minlength="5" ng-model="user.username" name="username" required />
+        <span class="error-message" ng-show="signupform.username.$error.minlength && signupform.username.$dirty">Username should be at least 5 characters long.</span>
+        <span class="error-message" ng-show="signupform.username.$error.required && signupform.username.$dirty">Username is required.</span>
+
+        <input type="password" placeholder="Set Password" ng-pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/" minlength="8" ng-model="user.password" name="password" required />
+
+<span class="error-message" ng-show="signupform.password.$error.pattern && (signupform.password.$dirty || signupform.$submitted)">Password should contain one lowercase, one uppercase, and one digit.</span>
+<span class="error-message" ng-show="signupform.password.$error.minlength && signupform.password.$dirty">Password should be at least 8 characters long.</span>
+<span class="error-message" ng-show="signupform.password.$error.required && signupform.password.$dirty">Password is required.</span>
+
+
+       
+       <button type="submit" ng-disabled="signupform.$invalid" ng-class="{ 'disabled-button': signupform.$invalid }">Signup</button>
+    </form>
+
+    <script>
+         var app = angular.module('signupApp', []);
+
+    app.controller('SignupController', function ($scope, $http) {
+        $scope.user = {};
+        $scope.signupform = {};
+
+        $scope.submitForm = function () {
+            // Set the form as submitted
+            $scope.signupform.submitted = true;
+
+            // Check for validation errors
+            if ($scope.signupform.$invalid) {
+                // AngularJS will prevent the default form submission
+                return;
+            }
+
+            // Perform form submission logic
+            console.log('Form submitted', $scope.user);
+            $http.post('signup.php', $scope.user)
+                .then(function (response) {
+                    // Handle successful signup
+                    console.log('Signup successful', response.data);
+
+                    // Optionally, you can reset the form after successful signup
+                    $scope.user = {};
+                    $scope.signupform.$setPristine();
+                    $scope.signupform.$setUntouched();
+                })
+                .catch(function (error) {
+                    // Handle signup errors
+                    console.error('Signup error', error.data);
+                });
+        };
+    });
+
+    </script>
+
+</body>
+
+</html>
+

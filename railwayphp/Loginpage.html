@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html ng-app="myLogin">
+<head>
+  
+  <meta name="title" content="Login" />
+  <meta name="description" content="This is Login Page" />
+  <title>Login Page</title>
+  <style>
+      .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+body {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("https://www.stockvault.net/data/2014/06/22/159041/preview16.jpg");
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+    background-color: rgba(256, 256, 256, 0.5);
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.7);
+    width: 90%; /* Adjust the width as needed */
+    max-width: 400px; /* Set a maximum width if desired */
+}
+
+.form > img {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+}
+
+.form > input {
+    border: 0;
+    width: 100%;
+    outline: 0;
+    padding: 13px;
+    margin: 5px 0;
+    font-size: 14px;
+    border-radius: 10px;
+}
+
+.form > .btn {
+    width: 150px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 1000px;
+    color: rgb(256, 256, 256);
+    text-transform: uppercase;
+    background-color: rgb(23, 165, 137);
+}
+
+button:hover {
+    background-color: lightcoral
+        ;
+}
+
+/* Your existing styles */
+
+/* Style for the pop-up message */
+.popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+  <script src="app.js"></script>
+</head>
+<body ng-controller="LoginController">
+    <div class="container">  
+  <form class="form" ng-submit="login()" action="signin.php" method="post">
+    <h2>Login Here</h2>
+
+    <input type="text" placeholder="Enter Username" name="username" minlength="5" required ng-model="username" ng-class="{ 'invalid': loginForm.username.$invalid && loginForm.username.$dirty && color.$red}">
+    <span ng-if="loginForm.username.$invalid && loginForm.username.$dirty">Username must be at least 5 characters long.</span>
+   def validate_username(username):
+    if not username:
+        return False
+    if not username[0].isalpha() or not username[0].isupper():
+        return False
+    if not username[1:].isalpha():
+        return False
+    return True
+    <input type="password" placeholder="Enter Password" name="password" minlength="8" required ng-model="password" ng-class="{ 'invalid': loginForm.password.$invalid && loginForm.password.$dirty }">
+    <span ng-if="loginForm.password.$invalid && loginForm.password.$dirty">Password must be at least 8 characters long.</span>
+
+    <br /><br />
+    <button id="loginButton" ng-disabled="loginForm.$invalid">Login</button><br />
+    <a href="Signup_page.html">Don't have an account? SIGN-UP Here</a>
+  
+    <a href="index.php"> Home</a>
+    </form>
+    </div>      
+  
+  <script>
+    angular.module('myLogin', [])
+      .controller('LoginController', function ($scope) {
+        $scope.login = function () {
+          // Add your login logic here
+          console.log('Login clicked');
+        };
+      });
+  </script>
+</body>
+</html>

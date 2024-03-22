@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seat Information</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        form {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        label,
+        select {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <form action="seat.php" method="POST">
+        <label for="train_number">Train Number:</label>
+        <input type="text" id="train_number" name="train_number" required>
+
+        <label for="date">Journey Date:</label>
+        <input type="text" name="date" placeholder="YYYY-MM-DD" required pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}"/>
+
+        <label for="departure_station">Departure Station:</label>
+        <input type="text" id="departure_station" name="departure_station" required>
+
+        <label for="arrival_station">Arrival Station:</label>
+        <input type="text" id="arrival_station" name="arrival_station" required>
+
+        <label for="class">Class:</label>
+        <select id="class" name="class" required>
+            <option value="Sleeper">Sleeper</option>
+            <option value="AC">AC</option>
+            <option value="firstclass">firstclass</option>
+            <option value="SL">SL</option>
+            <option value="2A">2A</option>
+            <option value="1A">1A</option>
+            <option value="3A">3A</option>
+        </select>
+
+        <label for="quota">Quota:</label>
+        <select id="quota" name="quota" required>
+            <option value="General">General</option>
+            <option value="Ladies">Ladies</option>
+            <option value="handicapped">handicapped</option>
+            <option value="tatkal">tatkal</option>
+            <option value="GN">GN</option>
+            <option value="LQ">LQ</option>
+            
+            
+        </select>
+
+        
+
+        <button type="submit">Check </button>
+    </form>
+
+</body>
+
+</html>
